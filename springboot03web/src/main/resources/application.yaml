@@ -1,3 +1,9 @@
+#thymeleaf 清楚缓存
 spring:
   thymeleaf:
     cache: false
+
+  #国际化默认
+  messages:
+    basename: i18n.login
+
