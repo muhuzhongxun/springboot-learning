@@ -11,16 +11,19 @@
 <!--  用户登录form表单 -->
 <form class="form-signin">
     <img class="mb-4" th:src="@{/login/img/login.jpg}" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">请登录</h1>
-    <input type="text" class="form-control" placeholder="用户名" required="" autofocus="">
-    <input type="password" class="form-control" placeholder="密码" required="">
+    <h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">请登录</h1>
+    <input type="text" class="form-control" th:placeholder="#{login.name}" required="" autofocus="">
+    <input type="password" class="form-control" th:placeholder="#{login.password}" required="">
     <div class="checkbox mb-3">
         <label>
-            <input type="checkbox" value="remember-me"> 记住我
+            <input type="checkbox" value="remember-me">[[#{login.remember}]]
         </label>
     </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-    <p class="mt-5 mb-3 text-muted">© <span th:text="${currentYear}">2018</span>-<span th:text="${currentYear}+1">2019</span></p>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">[[#{login.sumbit}]]</button>
+    <p class="mt-5 mb-3 text-muted">© <span>2021</span>-<span>2022</span></p>
+    <a class="btn btn-sm" th:href="@{/login?(l=zh_CN)}">中文</a>
+    <a class="btn btn-sm" th:href="@{/login?(l=en_US)}">English</a>
+    <a class="btn btn-sm" th:href="@{/login?(l=ja_JP)}">日本語</a>
 </form>
 </body>
 </html>
