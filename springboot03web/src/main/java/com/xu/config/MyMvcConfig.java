@@ -31,8 +31,9 @@ public class MyMvcConfig implements WebMvcConfigurer {
     //自定义拦截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        //只拦截后缀为.html的地址，登录界面除外
         registry.addInterceptor(new LoginHandlerInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/login.html","/","/user/login/", "/login/*");
+                .addPathPatterns("/*.html")
+                .excludePathPatterns("/login.html");
     }
 }
