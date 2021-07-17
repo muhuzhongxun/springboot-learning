@@ -6,4 +6,3 @@ spring:
   #国际化默认
   messages:
     basename: i18n.login
-
