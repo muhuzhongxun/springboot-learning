@@ -23,7 +23,7 @@
                     <div class="layui-card">
                         <div class="layui-card-body ">
                             <blockquote class="layui-elem-quote">欢迎管理员：
-                                <span class="x-red">[[${session.loginUser}]]</span>！当前时间:
+                                <span class="x-red">[[${session.loginUser}]]</span>！当前时间:<a id="nowdate"></a>
                             </blockquote>
                         </div>
                     </div>
@@ -202,6 +202,13 @@
         </div>
     </body>
 <script>
-    nowdate=new Date()
+    layui.use(['laydate'], function(){
+        var laydate = layui.laydate;
+        //执行一个laydate实例,
+        laydate.render({
+            elem: '#nowdate',
+            value: new Date()
+        });
+    })
 </script>
 </html>
