@@ -26,7 +26,7 @@ public class MemberDao {
     }
 
     //主键自增
-    private static Integer intid = 106;
+    private static Integer intid = 1006;
 
     //获得所有会员信息
     public Collection<Member> getMembers(){

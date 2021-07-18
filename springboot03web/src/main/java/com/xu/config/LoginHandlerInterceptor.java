@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class LoginHandlerInterceptor implements HandlerInterceptor {
+/*   暂时取消过滤器
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //登录成功之后，应该有用户的session
@@ -21,7 +22,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         }else{
             return true;
         }
-    }
+    }*/
 
 
 }

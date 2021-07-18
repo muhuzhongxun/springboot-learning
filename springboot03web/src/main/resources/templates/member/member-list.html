@@ -9,6 +9,7 @@
         <link rel="stylesheet" th:href="@{/css/font.css}">
         <link rel="stylesheet" th:href="@{/css/xadmin.css}">
         <script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+        <script th:src="@{/js/jquery.min.js}" charset="utf-8"></script>
         <script type="text/javascript" th:src="@{/js/xadmin.js}"></script>
         <!--[if lt IE 9]>
           <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -63,14 +64,15 @@
                                     <th>手机</th>
                                     <th>地址</th>
                                     <th>状态</th>
-                                    <th>操作</th></tr>
+                                    <th>操作</th>
+                                  </tr>
                                 </thead>
                                 <tbody>
                                   <tr th:each="member:${members}">
                                     <td>
                                       <input type="checkbox" name="id" value="${member.getId()}"   lay-skin="primary">
                                     </td>
-                                    <td th:text="${member.getId()}">1</td>
+                                    <td class="findid" th:text="${member.getId()}">1</td>
                                     <td th:text="${member.getName()}">小明</td>
                                     <td th:text="${member.getGender()==0?'女':'男'}">男</td>
                                     <td th:text="${member.getPhone()}">13000000000</td>
@@ -81,7 +83,7 @@
                                       <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                                         <i class="layui-icon">&#xe601;</i>
                                       </a>
-                                      <a title="编辑"  onclick="xadmin.open('编辑','member-edit.html',600,400)" href="javascript:;">
+                                      <a title="编辑"  onclick="toedit(this)" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>
                                       </a>
                                       <a onclick="xadmin.open('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
@@ -117,7 +119,6 @@
         var laydate = layui.laydate;
         var  form = layui.form;
 
-
         // 监听全选
         form.on('checkbox(checkall)', function(data){
 
@@ -129,6 +130,7 @@
           form.render('checkbox');
         });
 
+
         //执行一个laydate实例
         laydate.render({
           elem: '#start' //指定元素
@@ -138,8 +140,6 @@
         laydate.render({
           elem: '#end' //指定元素
         });
-
-
       });
 
        /*用户-停用*/
@@ -147,7 +147,6 @@
           layer.confirm('确认要停用吗？',function(index){
 
               if($(obj).attr('title')=='启用'){
-
                 //发异步把用户状态进行更改
                 $(obj).attr('title','停用')
                 $(obj).find('i').html('&#xe62f;');
@@ -164,6 +163,15 @@
               }
 
           });
+      }
+
+      /*用户编辑*/
+      function toedit(obj){
+          //获取当前行的id
+          var id = $(obj).parents('tr').find(".findid").text()
+          console.log(id)
+          xadmin.open('编辑','memberedit?id='+id,600,400)
+
       }
 
       /*用户-删除*/
