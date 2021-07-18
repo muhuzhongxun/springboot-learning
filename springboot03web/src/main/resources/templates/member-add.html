@@ -20,12 +20,12 @@
     <body>
         <div class="layui-fluid">
             <div class="layui-row">
-                <form class="layui-form" th:action="@{/memberadd}" method="post">
+                <form class="layui-form">
                     <div class="layui-form-item">
                         <label for="L_email" class="layui-form-label">
                             <span class="x-red">*</span>邮箱</label>
                         <div class="layui-input-inline">
-                            <input type="text" id="L_email" name="email" placeholder="987452163@qq.com" required="" lay-verify="email" autocomplete="off" class="layui-input"></div>
+                            <input type="text" id="L_email" name="email" value="87452163@qq.com" placeholder="987452163@qq.com" required="" lay-verify="email" autocomplete="off" class="layui-input"></div>
 
                         <div class="layui-form-mid layui-word-aux">
                             <span class="x-red">*</span>将会成为您唯一的登入名</div></div>
@@ -33,19 +33,19 @@
                         <label for="L_username" class="layui-form-label">
                             <span class="x-red">*</span>昵称</label>
                         <div class="layui-input-inline">
-                            <input type="text" id="L_username" name="name" placeholder="小肖" required="" lay-verify="nikename" autocomplete="off" class="layui-input"></div>
+                            <input type="text" id="L_username" name="name" value="小肖asd" placeholder="小肖" required="" lay-verify="nikename" autocomplete="off" class="layui-input"></div>
                     </div>
                     <div class="layui-form-item">
                         <label for="L_pass" class="layui-form-label">
                             <span class="x-red">*</span>密码</label>
                         <div class="layui-input-inline">
-                            <input type="password" id="L_pass" name="password" required="" lay-verify="pass" autocomplete="off" class="layui-input"></div>
+                            <input type="password" id="L_pass" name="password" value="asdasd" required="" lay-verify="pass" autocomplete="off" class="layui-input"></div>
                         <div class="layui-form-mid layui-word-aux">6到16个字符</div></div>
                     <div class="layui-form-item">
                         <label for="L_repass" class="layui-form-label">
                             <span class="x-red">*</span>确认密码</label>
                         <div class="layui-input-inline">
-                            <input type="password" id="L_repass" name="repass" required="" lay-verify="repass" autocomplete="off" class="layui-input"></div>
+                            <input type="password" id="L_repass" name="repass" value="asdasd" required="" lay-verify="repass" autocomplete="off" class="layui-input"></div>
                     </div>
                     <div class="layui-form-item">
                         <label for="L_repass" class="layui-form-label"></label>
@@ -74,10 +74,10 @@
                     }
                 });
                 //监听提交
-                /*form.on('submit(add)',
-                function(data) {
+                form.on('submit(add)',
+                function() {
                     //模拟post请求，添加会员信息
-                    $.post('http://localhost:8080/memberadd',[{name:data.username},{password:data.pass},{email:data.email}]).then(function (data) {
+                    $.post('http://localhost:8080/memberadd',{name:$('#L_username').val(),password:$('#L_pass').val(),email:$('#L_email').val()}).then(function (data) {
                         console.log(data);
                         layer.alert(data, {
                             icon: 6
@@ -88,9 +88,11 @@
                                 // 可以对父窗口进行刷新
                                 xadmin.father_reload();
                             });
-                        return false;
+
                     });
-                    })*/
+                    //阻止触发form表单提交的操作
+                    return false;
+                    })
             });</script>
     </body>
 
