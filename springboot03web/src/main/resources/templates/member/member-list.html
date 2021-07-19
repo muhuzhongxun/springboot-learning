@@ -49,7 +49,7 @@
                         </div>
                         <div class="layui-card-header">
                             <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('添加用户','./memberadd',600,400)"><i class="layui-icon"></i>添加</button>
+                            <button class="layui-btn" onclick="xadmin.open('添加用户','./memberadd',600,450)"><i class="layui-icon"></i>添加</button>
                         </div>
                         <div class="layui-card-body layui-table-body layui-table-main">
                             <table class="layui-table layui-form">
@@ -59,10 +59,11 @@
                                       <input type="checkbox" lay-filter="checkall" name="" lay-skin="primary">
                                     </th>
                                     <th>ID</th>
+                                    <th>邮箱</th>
                                     <th>用户名</th>
                                     <th>性别</th>
                                     <th>手机</th>
-                                    <th>地址</th>
+                                    <th>身份</th>
                                     <th>状态</th>
                                     <th>操作</th>
                                   </tr>
@@ -73,11 +74,18 @@
                                       <input type="checkbox" name="id" value="${member.getId()}"   lay-skin="primary">
                                     </td>
                                     <td class="findid" th:text="${member.getId()}">1</td>
+                                    <td th:text="${member.getEmail()}">98632551@qq.com</td>
                                     <td th:text="${member.getName()}">小明</td>
                                     <td th:text="${member.getGender()==0?'女':'男'}">男</td>
                                     <td th:text="${member.getPhone()}">13000000000</td>
-                                    <td th:text="${member.getAddress()}">北京市 海淀区</td>
-                                    <td class="td-status">
+                                      <td th:switch="${member.getRole()}">
+                                          <span th:case="0">普通用户</span>
+                                          <span th:case="1" class="x-green" style="font-size: 15px">会员</span>
+                                          <span th:case="2" class="x-blue" style="font-size: 15px">超级会员</span>
+                                          <span th:case="5" class="x-red" style="font-size: 15px">管理员</span>
+                                      </td>
+
+                                      <td class="td-status">
                                       <span class="layui-btn layui-btn-normal layui-btn-mini">[[${member.getStatus==0?'禁用':'已启用'}]]</span></td>
                                     <td class="td-manage">
                                       <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
@@ -97,6 +105,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        <!-- 列表页 -->
                         <div class="layui-card-body ">
                             <div class="page">
                                 <div>
@@ -170,7 +179,7 @@
           //获取当前行的id
           var id = $(obj).parents('tr').find(".findid").text()
           console.log(id)
-          xadmin.open('编辑','memberedit?id='+id,600,400)
+          xadmin.open('编辑','memberedit?id='+id,600,350)
 
       }
 

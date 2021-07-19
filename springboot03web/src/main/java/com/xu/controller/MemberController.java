@@ -49,7 +49,11 @@ public class MemberController {
         Member member = memberDao.getMemberById(id);
         model.addAttribute("member",member);
         //及其订单
+        //获得所有权限的信息
+        Collection<Role> roles = roleDao.getRole();
+        model.addAttribute("roles",roles);
 
+        System.out.println("正尝试跳转到 member/member-edit.html");
         //跳转到编辑会员信息页面
         return "member/member-edit.html";
     }

@@ -24,6 +24,14 @@ body{
     color: red;
 }
 
+.x-green{
+    color: green;
+}
+
+.x-blue{
+    color: blue;
+}
+
 .layui-form-switch{
     margin-top: 0px;
 }
@@ -323,7 +331,6 @@ body{
 .page-content .layui-tab-content .layui-tab-item iframe{
     width: 100%;
     height: 100%;
-
 }
 .x-admin-carousel,.layui-carousel,.x-admin-carousel>[carousel-item]>* {
     background-color:#fff
