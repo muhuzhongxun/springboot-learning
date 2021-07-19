@@ -49,7 +49,7 @@
                         </div>
                         <div class="layui-card-header">
                             <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('添加用户','./memberadd',600,450)"><i class="layui-icon"></i>添加</button>
+                            <button class="layui-btn" onclick="xadmin.open('添加用户','./memberadd',600,500)"><i class="layui-icon"></i>添加</button>
                         </div>
                         <div class="layui-card-body layui-table-body layui-table-main">
                             <table class="layui-table layui-form">
@@ -85,19 +85,19 @@
                                           <span th:case="5" class="x-red" style="font-size: 15px">管理员</span>
                                       </td>
 
-                                      <td class="td-status">
-                                      <span class="layui-btn layui-btn-normal layui-btn-mini">[[${member.getStatus==0?'禁用':'已启用'}]]</span></td>
+                                      <td class="td-status" name="td-status">
+                                      <span id="status" class="layui-btn layui-btn-normal layui-btn-mini">[[${member.getStatus==0?'已禁用':'已启用'}]]</span></td>
                                     <td class="td-manage">
-                                      <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                                        <i class="layui-icon">&#xe601;</i>
+                                      <a onclick="memberstop(this)" href="javascript:;"  title="${member.getStatus==0?'禁用':'启用'}">
+                                        <i class="layui-icon">[[${member.getStatus==0?"&#xe62f;":"&#xe601;"}]]</i>
                                       </a>
                                       <a title="编辑"  onclick="toedit(this)" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>
                                       </a>
-                                      <a onclick="xadmin.open('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
+                                      <a onclick="tomodify(this)" title="修改密码" href="javascript:;">
                                         <i class="layui-icon">&#xe631;</i>
                                       </a>
-                                      <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                                      <a title="删除" onclick="todel(this,'要删除的id')" href="javascript:;">
                                         <i class="layui-icon">&#xe640;</i>
                                       </a>
                                     </td>
@@ -124,6 +124,20 @@
         </div>
     </body>
     <script>
+
+        //页面加载完时，给禁用的状态加样式。
+        window.onload =function () {
+            //获取status属性的列
+            var objs = document.getElementsByName("td-status")
+            //遍历出每一行的statu的元素
+            for (var x=0;x<objs.length;x++) {
+                //console.log(objs[x].children[0])
+                if(objs[x].innerText == '已禁用')
+                    //给已禁用的状态加上禁止CSS样式
+                    objs[x].children[0].classList.add('layui-btn-disabled')
+            }
+        }
+
       layui.use(['laydate','form'], function(){
         var laydate = layui.laydate;
         var  form = layui.form;
@@ -151,44 +165,56 @@
         });
       });
 
-       /*用户-停用*/
-      function member_stop(obj,id){
+       /*用户状态-停用与启用*/
+      function memberstop(obj,id){
           layer.confirm('确认要停用吗？',function(index){
-
-              if($(obj).attr('title')=='启用'){
                 //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-              }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-              }
+              var id = $(obj).parents('tr').find(".findid").text()
+                  $.get('http://localhost:8080/memberStatusTransfor?id='+id).then(function (data) {
+                  // data:'启用' or '禁用'
+                  layer.msg(data,{icon: 5,time:1000});
+                  $(obj).attr('title',data)
+                      if(data == '禁用'){
+                          var btnColor = '&#xe62f;';
+                          $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled')
+                      }else{
+                          var btnColor = '&#xe601;';
+                          $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled')
+                      }
+                  $(obj).find('i').html(btnColor);
+                  $(obj).parents("tr").find(".td-status").find('span').html('已'+data);
+              });
 
           });
       }
 
-      /*用户编辑*/
+      /* 用户编辑 */
       function toedit(obj){
           //获取当前行的id
           var id = $(obj).parents('tr').find(".findid").text()
           console.log(id)
           xadmin.open('编辑','memberedit?id='+id,600,350)
-
       }
 
+      /* 修改密码 */
+      function tomodify(obj){
+          //获取当前行的id
+          var id = $(obj).parents('tr').find(".findid").text()
+          xadmin.open('修改密码','memberpassword?id='+id,600,350)
+      }
+
+
       /*用户-删除*/
-      function member_del(obj,id){
+      function todel(obj,id){
           layer.confirm('确认要删除吗？',function(index){
+              var id = $(obj).parents('tr').find(".findid").text()
               //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
+              $.get('http://localhost:8080/memberdel?id='+id).then(function (data) {
+                  $(obj).parents("tr").remove();
+                  var iconnumber = (data == '删除成功!')?1:0
+                  layer.msg(data,{icon:iconnumber,time:1000});
+              });
+
           });
       }
 

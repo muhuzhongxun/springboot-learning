@@ -23,6 +23,7 @@ public class MemberController {
     @Autowired
     RoleDao roleDao;
 
+    // 列出所有用户信息
     @RequestMapping("/memberlist")
     public String memberlist(Model model){
         System.out.println("MemberController==>member-list");
@@ -41,9 +42,9 @@ public class MemberController {
         return "member/member-add.html";
     }
 
-    // Get请求：根据id，并返回相应会员消息！
+    // Get请求：根据id返回该会员消息！并列出所有权限信息
     @GetMapping("/memberedit")
-    public String rolelist(@RequestParam("id") Integer id,Model model){
+    public String getTheMember(@RequestParam("id") Integer id,Model model){
         System.out.println("MemberRestController==>member-edit");
         //查询会员信息
         Member member = memberDao.getMemberById(id);
@@ -56,6 +57,16 @@ public class MemberController {
         System.out.println("正尝试跳转到 member/member-edit.html");
         //跳转到编辑会员信息页面
         return "member/member-edit.html";
+    }
+
+    @GetMapping("/memberpassword")
+    public String modifypass(@RequestParam("id") Integer id,Model model){
+        System.out.println("MemberRestController==>member-password");
+        //查询会员信息
+        Member member = memberDao.getMemberById(id);
+        model.addAttribute("member",member);
+        //跳转到重置密码页面
+        return "member/member-password.html";
     }
 
 

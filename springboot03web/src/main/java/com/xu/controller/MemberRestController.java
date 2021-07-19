@@ -5,10 +5,7 @@ import com.xu.pojo.Member;
 import com.xu.pojo.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -57,6 +54,54 @@ public class MemberRestController {
             return "修改成功！";
         }else{
             return "修改失败,请稍后重试。";
+        }
+    }
+
+
+    // POST请求：添加会员信息，并返回消息！
+    @PostMapping("/memberpassword")
+    public String memberupdata(
+            @RequestParam("id") Integer id,
+            @RequestParam("oldpass") String oldpass,
+            @RequestParam("pass") String password){
+        System.out.println("MemberResstController==>member-password");
+        //添加会员信息
+        Member member = memberDao.getMemberById(id);
+        if(oldpass.equals(member.getPassword())){
+            member.setPassword(password);
+            memberDao.save(member);
+            if(true){
+                //这句不能乱改，和前端JS里绑定了if语句，动态控制icon
+                return "修改成功！";
+            }else{
+                return "修改失败,请稍后重试。";
+            }
+        }
+        return "密码错误，请重试~";
+    }
+
+
+
+    // GEt请求：删除会员信息，并返回消息！
+    @GetMapping("/memberdel")
+    public String memberdel(@RequestParam("id") Integer id){
+        memberDao.remove(id);
+        if(true){
+            return "删除成功！";
+        }else{
+            return "删除失败，请稍后重试！";
+        }
+    }
+
+    @GetMapping("/memberStatusTransfor")
+    public String memberStatusTransfor(@RequestParam("id") Integer id){
+        Member member = memberDao.getMemberById(id);
+        member.setStatus(member.getStatus()==0?1:0);
+        memberDao.save(member);
+        if(member.getStatus()==0){
+            return "禁用";
+        }else{
+            return "启用";
         }
     }
 }
