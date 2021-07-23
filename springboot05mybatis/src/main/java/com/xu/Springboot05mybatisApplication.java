@@ -1,6 +1,5 @@
-package com.xu.springboot05mybatis;
+package com.xu;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
