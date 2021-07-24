@@ -16,13 +16,15 @@ public class LoginController {
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             Model model, HttpSession session) {
-        System.out.println("==》user/login！");
-        if(StringUtils.hasLength(username) && "123".equals(password)){
+        System.out.println("LoginController==>user/login！");
+        //默认牧户仲寻可随便进入
+        if("牧户仲寻".equals(username) && "123".equals(password)){
             System.out.println("登录成功！");
             session.removeAttribute("loginUser");
             session.setAttribute("loginUser",username);
             return "redirect:/index.html";
         }else{
+
             System.out.println("登录失败！");
             model.addAttribute("msg","账号或密码错误！");
             return "login.html";

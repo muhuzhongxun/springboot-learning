@@ -16,9 +16,9 @@ public class RoleDao {
         //创建一个会员表
         roles = new HashMap<Integer,Role>();
 
-        roles.put(1,new Role(0,"普通用户"));
-        roles.put(2,new Role(1,"会员"));
-        roles.put(3,new Role(2,"超级会员"));
+        roles.put(1,new Role(1,"普通用户"));
+        roles.put(2,new Role(2,"会员"));
+        roles.put(3,new Role(3,"超级会员"));
         roles.put(4,new Role(5,"管理员"));
         }
 
