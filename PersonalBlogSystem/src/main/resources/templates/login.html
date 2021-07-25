@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
+    <title>用户登录界面</title>
+    <link th:href="@{/login/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/login/css/signin.css}" rel="stylesheet">
+    <style>
+        body{
+            background-size: 100% ;
+            background-position-y: center;
+        }
+        form{
+            background: #f8f9facc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body class="text-center" th:background="@{/login/img/login_background.png}">
+<!--  用户登录form表单 -->
+<form class="form-signin" th:action="@{/user/login}">
+    <img class="mb-4" th:src="@{/login/img/login.jpg}" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">请登录</h1>
+    <!-- 如果msg为空，不显示 -->
+    <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+    <input type="text" name="username" class="form-control" th:placeholder="#{login.name}" value="牧户仲寻" required="" autofocus="">
+    <input type="password" name="password" class="form-control" th:placeholder="#{login.password}" value="123" required="">
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me">[[#{login.remember}]]
+        </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">[[#{login.sumbit}]]</button>
+    <p class="mt-5 mb-3 text-muted">© <span>2021</span>-<span>2022</span></p>
+    <a class="btn btn-sm" th:href="@{/login.html?(l=zh_CN)}">中文</a>
+    <a class="btn btn-sm" th:href="@{/login.html?(l=en_US)}">English</a>
+    <a class="btn btn-sm" th:href="@{/login.html?(l=ja_JP)}">日本語</a>
+</form>
+</body>
+</html>
