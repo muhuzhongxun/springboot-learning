@@ -1,0 +1,7 @@
+spring:
+  mail:
+    username: 983724494@qq.com
+    password: lvlylsfdftezbfhd
+    host: smtp.qq.com
+
+#\u5F00\u542F\u52A0\u5BC6\u9A8C\u8BC1

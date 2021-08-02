@@ -25,7 +25,15 @@
   * swagger 2.+ 导入某两个包
 * ###springboot009test
   * 异步任务
-  * 定时任务
+  * 定时任务\
+    spring-boot-start-email  
+    ---包含三个依赖--------------\
+    \\\ jakarta.mail\
+    \\\ spring-context-support\
+    \\\ spring-boot-starter\
+    自动配置类 --> 配置文件\
+    MailSenderAutoConfiguration --> MailProperties
+    
   * 邮件任务
 
 
