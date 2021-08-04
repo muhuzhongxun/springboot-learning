@@ -14,16 +14,15 @@
 * ###springboot04data：
   spring Web、JDBC API、MySQL Driver + maven：Druid
   * 用RestController做了数据的增删改查，并用druid做数据监控
-* ###springboot005mybatis
+* ###springboot05mybatis
   spring Web、JDBC API、MySQL Driver
-* ###springboot005mybatis
-* ###springboot006security
-* ###springboot007shrio
+* ###springboot06security
+* ###springboot07shrio
   * 未完成
-* ###springboot008swagger
+* ###springboot08swagger
   * swagger 3.0 导入springfox-boot-starter包
   * swagger 2.+ 导入某两个包
-* ###springboot009test
+* ###springboot09test
   * 异步任务
   * 定时任务\
     spring-boot-start-email  
@@ -33,12 +32,13 @@
     \\\ spring-boot-starter\
     自动配置类 --> 配置文件\
     MailSenderAutoConfiguration --> MailProperties
-    
+
+Cron表达式 cron="秒 分 时 日 月 星期"
+详细可百度cron生成器
   * 邮件任务
-
-
-
-
+* ###springboot010redis
+![img_2.png](img_2.png)
+![img_4.png](img_4.png)
 
 * [Spring Web](https://docs.spring.io/spring-boot/docs/2.5.2/reference/htmlsingle/#boot-features-developing-web-applications)
 * [JDBC API](https://docs.spring.io/spring-boot/docs/2.5.2/reference/htmlsingle/#boot-features-sql)
