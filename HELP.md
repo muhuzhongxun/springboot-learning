@@ -37,8 +37,15 @@ Cron表达式 cron="秒 分 时 日 月 星期"
 详细可百度cron生成器
   * 邮件任务
 * ###springboot010redis
-![img_2.png](img_2.png)
-![img_4.png](img_4.png)
+基础用法：\
+1.编写自己的 redisTemplate \
+2.加入了一个RedisUtil的工具类\
+高阶：
+3.Redis.conf详解,服务端的配置
+4.Redis持久化 （aop，rdb）
+5.Redis怎么发布订阅（微信订阅公众号，微博关注热搜推荐）
+5.Redis主从复用（：哨兵模式？）
+6.Redis缓存穿透，和雪崩（怎么办，布隆过滤器怎么做）
 
 * [Spring Web](https://docs.spring.io/spring-boot/docs/2.5.2/reference/htmlsingle/#boot-features-developing-web-applications)
 * [JDBC API](https://docs.spring.io/spring-boot/docs/2.5.2/reference/htmlsingle/#boot-features-sql)

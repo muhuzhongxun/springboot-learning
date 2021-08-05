@@ -1,16 +1,29 @@
 package com.xu;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.xu.Util.RedisUtil;
+import com.xu.pojo.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisTemplate;
 
 @SpringBootTest
 class Springboot10RedisApplicationTests {
 
     @Autowired
+    @Qualifier("redisTemplate")
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Test
+    public void test1(){
+        redisUtil.set("name","muhuzhonguxn");
+        System.out.println(redisUtil.get("name"));
+    }
 
     @Test
     void contextLoads() {
@@ -37,4 +50,13 @@ class Springboot10RedisApplicationTests {
 
     }
 
+    @Test
+    public void test() throws JsonProcessingException {
+
+        User user = new User("muhuzhongxun", 19);
+        //真实的开发一般需要使用json来传递对象
+        // String jsonUser = new ObjectMapper().writeValueAsString(user);
+        redisTemplate.opsForValue().set("user",user);
+        System.out.println(redisTemplate.opsForValue().get("user"));
+    }
 }
